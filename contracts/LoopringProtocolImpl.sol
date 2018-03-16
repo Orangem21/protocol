@@ -45,13 +45,11 @@ contract LoopringProtocolImpl is LoopringProtocol {
     /// Variables                                                            ///
     ////////////////////////////////////////////////////////////////////////////
 
-    address public  lrcTokenAddress             = 0x0;
-    address public  tokenRegistryAddress        = 0x0;
-    address public  delegateAddress             = 0x0;
-    address public  nameRegistryAddress         = 0x0;
-
-    uint64  public  ringIndex                   = 0;
-    uint8   public  walletSplitPercentage       = 0;
+    address constant public  lrcTokenAddress        = 0xEF68e7C694F40c8202821eDF525dE3782458639f;
+    address constant public  tokenRegistryAddress   = 0xa21c1f2AE7f721aE77b1204A4f0811c642638da9;
+    address constant public  delegateAddress        = 0xc787aE8D6560FB77B82F42CED8eD39f94961e304;
+    address constant public  nameRegistryAddress    = 0x0f3Dce8560a6010DE119396af005552B7983b7e7;
+    uint8   constant public  walletSplitPercentage  = 20;
 
     // Exchange rate (rate) is the amount to sell or sold divided by the amount
     // to buy or bought.
@@ -62,7 +60,9 @@ contract LoopringProtocolImpl is LoopringProtocol {
     // To require all orders' rate ratios to have coefficient ofvariation (CV)
     // smaller than 2.5%, for an example , rateRatioCVSThreshold should be:
     //     `(0.025 * RATE_RATIO_SCALE)^2` or 62500.
-    uint    public rateRatioCVSThreshold        = 0;
+    uint    constant public rateRatioCVSThreshold  = 62500;
+
+    uint64  public  ringIndex                   = 0;
 
     uint    public constant MAX_RING_SIZE       = 16;
 
@@ -175,31 +175,31 @@ contract LoopringProtocolImpl is LoopringProtocol {
     /// Constructor                                                          ///
     ////////////////////////////////////////////////////////////////////////////
 
-    function LoopringProtocolImpl(
-        address _lrcTokenAddress,
-        address _tokenRegistryAddress,
-        address _delegateAddress,
-        address _nameRegistryAddress,
-        uint    _rateRatioCVSThreshold,
-        uint8   _walletSplitPercentage
-        )
-        public
-    {
-        require(0x0 != _lrcTokenAddress);
-        require(0x0 != _tokenRegistryAddress);
-        require(0x0 != _delegateAddress);
-        require(0x0 != _nameRegistryAddress);
+    /* function LoopringProtocolImpl( */
+    /*     address _lrcTokenAddress, */
+    /*     address _tokenRegistryAddress, */
+    /*     address _delegateAddress, */
+    /*     address _nameRegistryAddress, */
+    /*     uint    _rateRatioCVSThreshold, */
+    /*     uint8   _walletSplitPercentage */
+    /*     ) */
+    /*     public */
+    /* { */
+    /*     require(0x0 != _lrcTokenAddress); */
+    /*     require(0x0 != _tokenRegistryAddress); */
+    /*     require(0x0 != _delegateAddress); */
+    /*     require(0x0 != _nameRegistryAddress); */
 
-        require(_rateRatioCVSThreshold > 0);
-        require(_walletSplitPercentage > 0);
+    /*     require(_rateRatioCVSThreshold > 0); */
+    /*     require(_walletSplitPercentage > 0); */
 
-        lrcTokenAddress = _lrcTokenAddress;
-        tokenRegistryAddress = _tokenRegistryAddress;
-        delegateAddress = _delegateAddress;
-        nameRegistryAddress = _nameRegistryAddress;
-        rateRatioCVSThreshold = _rateRatioCVSThreshold;
-        walletSplitPercentage = _walletSplitPercentage;
-    }
+    /*     lrcTokenAddress = _lrcTokenAddress; */
+    /*     tokenRegistryAddress = _tokenRegistryAddress; */
+    /*     delegateAddress = _delegateAddress; */
+    /*     nameRegistryAddress = _nameRegistryAddress; */
+    /*     rateRatioCVSThreshold = _rateRatioCVSThreshold; */
+    /*     walletSplitPercentage = _walletSplitPercentage; */
+    /* } */
 
     ////////////////////////////////////////////////////////////////////////////
     /// Public Functions                                                     ///
@@ -559,7 +559,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         OrderState[]  orders
         )
         private
-        view
+        pure
     {
         uint[] memory rateRatios = new uint[](ringSize);
         uint _rateRatioScale = RATE_RATIO_SCALE;

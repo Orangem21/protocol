@@ -48,7 +48,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
     address constant public  lrcTokenAddress        = 0xEF68e7C694F40c8202821eDF525dE3782458639f;
     address constant public  tokenRegistryAddress   = 0xa21c1f2AE7f721aE77b1204A4f0811c642638da9;
     address constant public  delegateAddress        = 0xc787aE8D6560FB77B82F42CED8eD39f94961e304;
-    address constant public  nameRegistryAddress    = 0x0f3Dce8560a6010DE119396af005552B7983b7e7;
+    address constant public  nameRegistryAddress    = 0xd181c1808e3f010F0F0aABc6Fe1bcE2025DB7Bb7;
     uint8   constant public  walletSplitPercentage  = 20;
 
     // Exchange rate (rate) is the amount to sell or sold divided by the amount
@@ -175,31 +175,6 @@ contract LoopringProtocolImpl is LoopringProtocol {
     /// Constructor                                                          ///
     ////////////////////////////////////////////////////////////////////////////
 
-    /* function LoopringProtocolImpl( */
-    /*     address _lrcTokenAddress, */
-    /*     address _tokenRegistryAddress, */
-    /*     address _delegateAddress, */
-    /*     address _nameRegistryAddress, */
-    /*     uint    _rateRatioCVSThreshold, */
-    /*     uint8   _walletSplitPercentage */
-    /*     ) */
-    /*     public */
-    /* { */
-    /*     require(0x0 != _lrcTokenAddress); */
-    /*     require(0x0 != _tokenRegistryAddress); */
-    /*     require(0x0 != _delegateAddress); */
-    /*     require(0x0 != _nameRegistryAddress); */
-
-    /*     require(_rateRatioCVSThreshold > 0); */
-    /*     require(_walletSplitPercentage > 0); */
-
-    /*     lrcTokenAddress = _lrcTokenAddress; */
-    /*     tokenRegistryAddress = _tokenRegistryAddress; */
-    /*     delegateAddress = _delegateAddress; */
-    /*     nameRegistryAddress = _nameRegistryAddress; */
-    /*     rateRatioCVSThreshold = _rateRatioCVSThreshold; */
-    /*     walletSplitPercentage = _walletSplitPercentage; */
-    /* } */
 
     ////////////////////////////////////////////////////////////////////////////
     /// Public Functions                                                     ///

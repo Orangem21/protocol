@@ -26,7 +26,7 @@ import "./tokenRegistry.sol";
 ///      so the token can be traded with Loopring Protocol.
 /// @author Kongliang Zhong - <kongliang@loopring.org>,
 /// @author Daniel Wang - <daniel@loopring.org>.
-contract ERC20TokenCreator {
+contract TokenCreator {
     address[] public tokens;
     address   public tokenRegistryAddr;
 

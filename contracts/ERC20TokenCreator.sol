@@ -26,11 +26,11 @@ import "./tokenRegistry.sol";
 ///      so the token can be traded with Loopring Protocol.
 /// @author Kongliang Zhong - <kongliang@loopring.org>,
 /// @author Daniel Wang - <daniel@loopring.org>.
-contract TokenCreator {
+contract ERC20TokenCreator {
     address[] public tokens;
     address   public tokenRegistryAddr;
 
-    event ERC20TokenCreated(address addr);
+    event TokenCreated(address addr);
 
     /// @dev Disable default function.
     function () payable public {
@@ -61,9 +61,11 @@ contract TokenCreator {
             _totalSupply,
             tx.origin
         );
+
         addr = address(token);
         TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, _symbol);
         tokens.push(addr);
-        ERC20TokenCreated(addr);
+
+        TokenCreated(addr);
     }
 }

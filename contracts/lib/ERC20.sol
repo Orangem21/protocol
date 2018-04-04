@@ -22,11 +22,6 @@ pragma solidity 0.4.19;
 /// @dev see https://github.com/ethereum/EIPs/issues/20
 /// @author Daniel Wang - <daniel@loopring.org>
 contract ERC20 {
-    uint public totalSupply;
-
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-
     function balanceOf(address who) view public returns (uint256);
     function allowance(address owner, address spender) view public returns (uint256);
     function transfer(address to, uint256 value) public returns (bool);

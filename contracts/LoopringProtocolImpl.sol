@@ -15,7 +15,7 @@
   limitations under the License.
 
 */
-pragma solidity 0.4.19;
+pragma solidity 0.4.21;
 
 import "./lib/ERC20.sol";
 import "./lib/MathBytes32.sol";
@@ -255,7 +255,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         cancelled[orderHash] = cancelled[orderHash].add(cancelAmount);
         cancelledOrFilled[orderHash] = cancelledOrFilled[orderHash].add(cancelAmount);
 
-        OrderCancelled(orderHash, cancelAmount);
+        emit OrderCancelled(orderHash, cancelAmount);
     }
 
     function cancelAllOrdersByTradingPair(
@@ -271,7 +271,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         require(tradingPairCutoffs[msg.sender][tokenPair] < t); // "attempted to set cutoff to a smaller value"
 
         tradingPairCutoffs[msg.sender][tokenPair] = t;
-        OrdersCancelled(
+        emit OrdersCancelled(
             msg.sender,
             token1,
             token2,
@@ -287,7 +287,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         require(cutoffs[msg.sender] < t); // "attempted to set cutoff to a smaller value"
 
         cutoffs[msg.sender] = t;
-        AllOrdersCancelled(msg.sender, t);
+        emit AllOrdersCancelled(msg.sender, t);
     }
 
     function submitRing(
@@ -481,7 +481,9 @@ contract LoopringProtocolImpl is LoopringProtocol {
         );
 
         /// Make transfers.
-        var (orderHashList, amountsList) = settleRing(
+        bytes32[] memory orderHashList;
+        uint[6][] memory amountsList;
+        (orderHashList, amountsList) = settleRing(
             delegate,
             params.ringSize,
             orders,
@@ -489,7 +491,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
             _lrcTokenAddress
         );
 
-        RingMined(
+        emit RingMined(
             _ringIndex,
             params.ringHash,
             params.ringMiner,

@@ -15,7 +15,7 @@
   limitations under the License.
 
 */
-pragma solidity 0.4.19;
+pragma solidity 0.4.21;
 
 import "./lib/Claimable.sol";
 
@@ -110,7 +110,7 @@ contract TokenRegistry is Claimable {
         }
         addresses.length--;
 
-        TokenUnregistered(addr, symbol);
+        emit TokenUnregistered(addr, symbol);
     }
 
     function areAllTokensRegistered(address[] addressList)
@@ -194,6 +194,6 @@ contract TokenRegistry is Claimable {
         symbolMap[symbol] = addr;
         addressMap[addr] = TokenInfo(addresses.length, symbol);
 
-        TokenRegistered(addr, symbol);
+        emit TokenRegistered(addr, symbol);
     }
 }

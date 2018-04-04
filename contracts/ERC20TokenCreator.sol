@@ -15,7 +15,7 @@
   limitations under the License.
 
 */
-pragma solidity 0.4.19;
+pragma solidity 0.4.21;
 
 import "./lib/ERC20Token.sol";
 import "./tokenRegistry.sol";
@@ -66,6 +66,6 @@ contract ERC20TokenCreator {
         TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, _symbol);
         tokens.push(addr);
 
-        TokenCreated(addr);
+        emit TokenCreated(addr);
     }
 }

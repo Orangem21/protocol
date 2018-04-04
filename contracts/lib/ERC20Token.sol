@@ -22,7 +22,7 @@ import "./ERC20.sol";
 
 /// @title ERC20 Token Implementation
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <daniel@loopring.org
+/// @author Daniel Wang - <daniel@loopring.org>
 contract ERC20Token /*is ERC20*/ {
 
   string  public name;

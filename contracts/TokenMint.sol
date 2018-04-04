@@ -45,7 +45,7 @@ contract TokenMint {
         tokenRegistryAddr = _tokenRegistryAddr;
     }
 
-    function createToken(
+    function mintToken(
         string  _name,
         string  _symbol,
         uint8   _decimals,

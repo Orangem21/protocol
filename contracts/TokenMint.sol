@@ -28,7 +28,8 @@ import "./tokenRegistry.sol";
 /// @author Daniel Wang - <daniel@loopring.org>.
 contract TokenMint {
     address[] public tokens;
-    address   public tokenRegistryAddr;
+    address   public tokenRegistry;
+    address   public tokenTransferDelegate;
 
     event TokenMinted(
         address indexed addr,
@@ -36,20 +37,29 @@ contract TokenMint {
         string  symbol,
         uint8   decimals,
         uint    totalSupply,
-        address firstHolder
+        address firstHolder,
+        address tokenTransferDelegate
     );
 
     /// @dev Disable default function.
-    function () payable public {
+    function () payable public
+    {
         revert();
     }
 
     /// @dev Initialize TokenRegistry address.
     ///      This method sjhall be called immediately upon deployment.
-    function setTokenRegistry(address _tokenRegistryAddr) public
+    function initialize(
+        address _tokenRegistry,
+        address _tokenTransferDelegate
+        )
+        public
     {
-        require(tokenRegistryAddr == 0x0 && _tokenRegistryAddr != 0x0);
-        tokenRegistryAddr = _tokenRegistryAddr;
+        require(tokenRegistry == 0x0 && _tokenRegistry != 0x0);
+        tokenRegistry = _tokenRegistry;
+
+        require(tokenTransferDelegate == 0x0 && _tokenTransferDelegate != 0x0);
+        tokenTransferDelegate = _tokenTransferDelegate;
     }
 
     /// @dev Deploy an ERC20 token contract, register it with TokenRegistry, 
@@ -65,18 +75,22 @@ contract TokenMint {
         uint    totalSupply
         )
         public
-        returns(address addr)
+        returns (address addr)
     {
+        require(tokenRegistry != 0x0);
+        require(tokenTransferDelegate != 0x0);
+
         ERC20Token token = new ERC20Token(
             name,
             symbol,
             decimals,
             totalSupply,
-            tx.origin
+            tx.origin,
+            tokenTransferDelegate
         );
 
         addr = address(token);
-        TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, symbol);
+        TokenRegistry(tokenRegistry).registerCreatedToken(addr, symbol);
         tokens.push(addr);
 
         emit TokenMinted(
@@ -85,7 +99,8 @@ contract TokenMint {
             symbol,
             decimals,
             totalSupply,
-            tx.origin
+            tx.origin,
+            tokenTransferDelegate
         );
     }
 }

@@ -509,7 +509,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         address       _lrcTokenAddress
         )
         private
-        returns(
+        returns (
         bytes32[] memory orderHashList,
         uint[6][] memory amountsList)
     {

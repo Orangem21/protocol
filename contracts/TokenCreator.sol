@@ -21,8 +21,9 @@ import "./lib/ERC20Token.sol";
 import "./tokenRegistry.sol";
 
 
-/// @title Token Register Contract
-/// @dev This contract maintains a list of tokens the Protocol supports.
+/// @title ERC20 Token Creator
+/// @dev This contract deploys ERC20 token contract and registered the contract
+///      so the token can be traded with Loopring Protocol.
 /// @author Kongliang Zhong - <kongliang@loopring.org>,
 /// @author Daniel Wang - <daniel@loopring.org>.
 contract TokenCreator {

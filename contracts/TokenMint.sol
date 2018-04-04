@@ -21,16 +21,16 @@ import "./lib/ERC20Token.sol";
 import "./tokenRegistry.sol";
 
 
-/// @title ERC20 Token Creator
+/// @title ERC20 Token Mint
 /// @dev This contract deploys ERC20 token contract and registered the contract
 ///      so the token can be traded with Loopring Protocol.
 /// @author Kongliang Zhong - <kongliang@loopring.org>,
 /// @author Daniel Wang - <daniel@loopring.org>.
-contract TokenCreator {
+contract TokenMint {
     address[] public tokens;
     address   public tokenRegistryAddr;
 
-    event TokenCreated(address addr);
+    event TokenMinted(address addr);
 
     /// @dev Disable default function.
     function () payable public {
@@ -66,6 +66,6 @@ contract TokenCreator {
         TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, _symbol);
         tokens.push(addr);
 
-        emit TokenCreated(addr);
+        emit TokenMinted(addr);
     }
 }

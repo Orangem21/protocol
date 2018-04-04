@@ -26,7 +26,7 @@ import "./lib/Claimable.sol";
 /// @author Daniel Wang - <daniel@loopring.org>.
 contract TokenRegistry is Claimable {
 
-    address tokenCreatorAddr;
+    address tokenMintAddr;
     address[] public addresses;
     mapping (address => TokenInfo) addressMap;
     mapping (string => address) symbolMap;
@@ -57,10 +57,10 @@ contract TokenRegistry is Claimable {
         revert();
     }
 
-    function TokenRegistry(address _tokenCreatorAddr) public
+    function TokenRegistry(address _tokenMintAddr) public
     {
-        require(_tokenCreatorAddr != 0x0);
-        tokenCreatorAddr = _tokenCreatorAddr;
+        require(_tokenMintAddr != 0x0);
+        tokenMintAddr = _tokenMintAddr;
     }
 
     function registerToken(
@@ -79,7 +79,7 @@ contract TokenRegistry is Claimable {
         )
         external
     {
-        require(msg.sender == tokenCreatorAddr);
+        require(msg.sender == tokenMintAddr);
         registerTokenInternal(addr, symbol);
     }
 

@@ -31,7 +31,7 @@ contract TokenMint {
     address   public tokenRegistryAddr;
 
     event TokenMinted(
-        address addr,
+        address indexed addr,
         string  name,
         string  symbol,
         uint8   decimals,

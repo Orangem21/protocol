@@ -59,7 +59,7 @@ contract TokenCreator {
             _symbol,
             _decimals,
             _totalSupply,
-            msg.sender
+            tx.origin
         );
         addr = address(token);
         TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, _symbol);

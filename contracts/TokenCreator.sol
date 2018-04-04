@@ -57,8 +57,7 @@ contract TokenCreator {
         string  _name,
         string  _symbol,
         uint8   _decimals,
-        uint    _totalSupply,
-        address _firstHolder
+        uint    _totalSupply
         )
         public
         returns (ERC20Token)
@@ -68,7 +67,7 @@ contract TokenCreator {
             _symbol,
             _decimals,
             _totalSupply,
-            _firstHolder
+            msg.sender
         );
         address addr = address(token);
         TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, _symbol);

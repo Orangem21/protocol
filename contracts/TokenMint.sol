@@ -35,7 +35,8 @@ contract TokenMint {
         string  name,
         string  symbol,
         uint8   decimals,
-        uint    totalSupply
+        uint    totalSupply,
+        address firstHolder
     );
 
     /// @dev Disable default function.
@@ -83,7 +84,8 @@ contract TokenMint {
             name,
             symbol,
             decimals,
-            totalSupply
+            totalSupply,
+            tx.origin
         );
     }
 }

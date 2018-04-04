@@ -90,7 +90,7 @@ contract TokenMint {
         );
 
         addr = address(token);
-        TokenRegistry(tokenRegistry).registerCreatedToken(addr, symbol);
+        TokenRegistry(tokenRegistry).registerMintedToken(addr, symbol);
         tokens.push(addr);
 
         emit TokenMinted(

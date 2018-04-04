@@ -73,7 +73,7 @@ contract TokenRegistry is Claimable {
         registerTokenInternal(addr, symbol);
     }
 
-    function registerCreatedToken(
+    function registerMintedToken(
         address addr,
         string  symbol
         )

@@ -26,6 +26,7 @@ import "./lib/Claimable.sol";
 /// @author Daniel Wang - <daniel@loopring.org>.
 contract TokenRegistry is Claimable {
 
+    address tokenCreatorAddr;
     address[] public addresses;
     mapping (address => TokenInfo) addressMap;
     mapping (string => address) symbolMap;
@@ -56,6 +57,12 @@ contract TokenRegistry is Claimable {
         revert();
     }
 
+    function TokenRegistry(address _tokenCreatorAddr) public
+    {
+        require(_tokenCreatorAddr != 0x0);
+        tokenCreatorAddr = _tokenCreatorAddr;
+    }
+
     function registerToken(
         address addr,
         string  symbol
@@ -63,16 +70,17 @@ contract TokenRegistry is Claimable {
         external
         onlyOwner
     {
-        require(0x0 != addr);
-        require(bytes(symbol).length > 0);
-        require(0x0 == symbolMap[symbol]);
-        require(0 == addressMap[addr].pos);
+        registerTokenInternal(addr, symbol);
+    }
 
-        addresses.push(addr);
-        symbolMap[symbol] = addr;
-        addressMap[addr] = TokenInfo(addresses.length, symbol);
-
-        TokenRegistered(addr, symbol);
+    function registerCreatedToken(
+        address addr,
+        string  symbol
+        )
+        external
+    {
+        require(msg.sender == tokenCreatorAddr);
+        registerTokenInternal(addr, symbol);
     }
 
     function unregisterToken(
@@ -169,5 +177,23 @@ contract TokenRegistry is Claimable {
         for (uint i = start; i < end; i++) {
             addressList[i - start] = addresses[i];
         }
+    }
+
+    function registerTokenInternal(
+        address addr,
+        string  symbol
+        )
+        internal
+    {
+        require(0x0 != addr);
+        require(bytes(symbol).length > 0);
+        require(0x0 == symbolMap[symbol]);
+        require(0 == addressMap[addr].pos);
+
+        addresses.push(addr);
+        symbolMap[symbol] = addr;
+        addressMap[addr] = TokenInfo(addresses.length, symbol);
+
+        TokenRegistered(addr, symbol);
     }
 }

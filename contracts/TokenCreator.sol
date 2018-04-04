@@ -27,26 +27,18 @@ import "./tokenRegistry.sol";
 /// @author Kongliang Zhong - <kongliang@loopring.org>,
 /// @author Daniel Wang - <daniel@loopring.org>.
 contract TokenCreator {
-
     address[] public tokens;
     address   public tokenRegistryAddr;
 
-    ////////////////////////////////////////////////////////////////////////////
-    /// Events                                                               ///
-    ////////////////////////////////////////////////////////////////////////////
-
     event ERC20TokenCreated(address addr);
-
-    ////////////////////////////////////////////////////////////////////////////
-    /// Public Functions                                                     ///
-    ////////////////////////////////////////////////////////////////////////////
 
     /// @dev Disable default function.
     function () payable public {
         revert();
     }
 
-    /// This method must be called immediately upon deployment.
+    /// @dev Initialize TokenRegistry address.
+    ///      This method sjhall be called immediately upon deployment.
     function setTokenRegistry(address _tokenRegistryAddr) public
     {
         require(tokenRegistryAddr == 0x0 && _tokenRegistryAddr != 0x0);
@@ -60,7 +52,7 @@ contract TokenCreator {
         uint    _totalSupply
         )
         public
-        returns (ERC20Token)
+        returns(address addr)
     {
         ERC20Token token = new ERC20Token(
             _name,
@@ -69,10 +61,9 @@ contract TokenCreator {
             _totalSupply,
             msg.sender
         );
-        address addr = address(token);
+        addr = address(token);
         TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, _symbol);
         tokens.push(addr);
         ERC20TokenCreated(addr);
-        return token;
     }
 }

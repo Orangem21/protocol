@@ -30,7 +30,13 @@ contract TokenMint {
     address[] public tokens;
     address   public tokenRegistryAddr;
 
-    event TokenMinted(address addr);
+    event TokenMinted(
+        address addr,
+        string  name,
+        string  symbol,
+        uint8   decimals,
+        uint    totalSupply
+    );
 
     /// @dev Disable default function.
     function () payable public {
@@ -45,27 +51,39 @@ contract TokenMint {
         tokenRegistryAddr = _tokenRegistryAddr;
     }
 
+    /// @dev Deploy an ERC20 token contract, register it with TokenRegistry, 
+    ///      and returns the new token's address.
+    /// @param name The name of the token
+    /// @param symbol The symbol of the token.
+    /// @param decimals The decimals of the token.
+    /// @param totalSupply The total supply of the token.
     function mintToken(
-        string  _name,
-        string  _symbol,
-        uint8   _decimals,
-        uint    _totalSupply
+        string  name,
+        string  symbol,
+        uint8   decimals,
+        uint    totalSupply
         )
         public
         returns(address addr)
     {
         ERC20Token token = new ERC20Token(
-            _name,
-            _symbol,
-            _decimals,
-            _totalSupply,
+            name,
+            symbol,
+            decimals,
+            totalSupply,
             tx.origin
         );
 
         addr = address(token);
-        TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, _symbol);
+        TokenRegistry(tokenRegistryAddr).registerCreatedToken(addr, symbol);
         tokens.push(addr);
 
-        emit TokenMinted(addr);
+        emit TokenMinted(
+            addr,
+            name,
+            symbol,
+            decimals,
+            totalSupply
+        );
     }
 }

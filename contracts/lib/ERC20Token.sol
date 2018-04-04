@@ -29,7 +29,6 @@ contract ERC20Token /*is ERC20*/ {
   string  public symbol;
   uint8   public decimals;
   uint    public totalSupply;
-  address public firstHolder;
   mapping(address => uint256) balances;
 
     function ERC20Token(
@@ -50,8 +49,7 @@ contract ERC20Token /*is ERC20*/ {
         symbol = _symbol;
         decimals = _decimals;
         totalSupply = _totalSupply;
-        firstHolder = _firstHolder;
-        balances[firstHolder] = totalSupply;
+        balances[_firstHolder] = totalSupply;
     }
 
 

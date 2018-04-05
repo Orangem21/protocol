@@ -53,6 +53,7 @@
     "escape-string-regexp": "^1.0.5",
     "estraverse": "^4.2.0",
     "esutils": "^2.0.2",
+    "eth-gas-reporter": "^0.1.1",
     "ethereumjs-abi": "^0.6.4",
     "ethereumjs-util": "^5.1.5",
     "event-emitter": "^0.3.5",

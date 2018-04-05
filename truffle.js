@@ -40,6 +40,13 @@ module.exports = {
       gas: 4500000
     }
   },
+  mocha: {
+    reporter: 'eth-gas-reporter',
+    reporterOptions : {
+    currency: 'CNY',
+    gasPrice: 2
+    }
+  },
   test_directory: 'transpiled/test',
   migrations_directory: 'transpiled/migrations',
 };

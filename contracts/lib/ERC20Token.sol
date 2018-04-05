@@ -17,6 +17,7 @@
 */
 pragma solidity 0.4.21;
 
+import "./AddressUtil.sol";
 import "./ERC20.sol";
 import "./MathUint.sol";
 
@@ -27,6 +28,7 @@ import "./MathUint.sol";
 /// @author Daniel Wang - <daniel@loopring.org>
 contract ERC20Token is ERC20 {
     using MathUint for uint;
+    using AddressUtil for address;
 
     string  public name;
     string  public symbol;
@@ -54,7 +56,7 @@ contract ERC20Token is ERC20 {
         require(bytes(_symbol).length > 0);
         require(_totalSupply > 0);
         require(_firstHolder != 0x0);
-        require(_tokenTransferDelegate != 0x0);
+        require(_tokenTransferDelegate.isContract());
 
         name = _name;
         symbol = _symbol;

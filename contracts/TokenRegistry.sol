@@ -17,6 +17,7 @@
 */
 pragma solidity 0.4.21;
 
+import "./lib/AddressUtil.sol";
 import "./lib/Claimable.sol";
 
 
@@ -25,6 +26,7 @@ import "./lib/Claimable.sol";
 /// @author Kongliang Zhong - <kongliang@loopring.org>,
 /// @author Daniel Wang - <daniel@loopring.org>.
 contract TokenRegistry is Claimable {
+    using AddressUtil for address;
 
     address tokenMintAddr;
     address[] public addresses;
@@ -59,7 +61,7 @@ contract TokenRegistry is Claimable {
 
     function TokenRegistry(address _tokenMintAddr) public
     {
-        require(_tokenMintAddr != 0x0);
+        require(_tokenMintAddr.isContract());
         tokenMintAddr = _tokenMintAddr;
     }
 

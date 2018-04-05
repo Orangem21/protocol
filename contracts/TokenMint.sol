@@ -17,8 +17,9 @@
 */
 pragma solidity 0.4.21;
 
+import "./lib/AddressUtil.sol";
 import "./lib/ERC20Token.sol";
-import "./tokenRegistry.sol";
+import "./TokenRegistry.sol";
 
 
 /// @title ERC20 Token Mint
@@ -27,6 +28,8 @@ import "./tokenRegistry.sol";
 /// @author Kongliang Zhong - <kongliang@loopring.org>,
 /// @author Daniel Wang - <daniel@loopring.org>.
 contract TokenMint {
+    using AddressUtil for address;
+
     address[] public tokens;
     address   public tokenRegistry;
     address   public tokenTransferDelegate;
@@ -55,10 +58,10 @@ contract TokenMint {
         )
         public
     {
-        require(tokenRegistry == 0x0 && _tokenRegistry != 0x0);
+        require(tokenRegistry == 0x0 && _tokenRegistry.isContract());
         tokenRegistry = _tokenRegistry;
 
-        require(tokenTransferDelegate == 0x0 && _tokenTransferDelegate != 0x0);
+        require(tokenTransferDelegate == 0x0 && _tokenTransferDelegate.isContract());
         tokenTransferDelegate = _tokenTransferDelegate;
     }
 

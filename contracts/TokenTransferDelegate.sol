@@ -17,9 +17,9 @@
 */
 pragma solidity 0.4.21;
 
+import "./lib/Claimable.sol";
 import "./lib/ERC20.sol";
 import "./lib/MathUint.sol";
-import "./lib/Claimable.sol";
 
 
 /// @title TokenTransferDelegate

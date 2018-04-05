@@ -17,6 +17,7 @@
 */
 pragma solidity 0.4.21;
 
+import "./lib/AddressUtil.sol";
 import "./lib/ERC20.sol";
 import "./lib/MathBytes32.sol";
 import "./lib/MathUint.sol";
@@ -37,6 +38,7 @@ import "./TokenTransferDelegate.sol";
 ///     https://github.com/BenjaminPrice
 ///     https://github.com/jonasshen
 contract LoopringProtocolImpl is LoopringProtocol {
+    using AddressUtil   for address;
     using MathBytes32   for bytes32[];
     using MathUint      for uint;
     using MathUint8     for uint8[];
@@ -185,10 +187,10 @@ contract LoopringProtocolImpl is LoopringProtocol {
         )
         public
     {
-        require(0x0 != _lrcTokenAddress);
-        require(0x0 != _tokenRegistryAddress);
-        require(0x0 != _delegateAddress);
-        require(0x0 != _nameRegistryAddress);
+        require(_lrcTokenAddress.isContract());
+        require(_tokenRegistryAddress.isContract());
+        require(_delegateAddress.isContract());
+        require(_nameRegistryAddress.isContract());
 
         require(_rateRatioCVSThreshold > 0);
         require(_walletSplitPercentage > 0 && _walletSplitPercentage < 100);
